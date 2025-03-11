@@ -1,7 +1,57 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import base64
+from pathlib import Path
+
 # Load data
+@st.cache_data
+def load_data():
+    return pd.read_csv("model_ehsan.csv")
+
+def creat_model_charts():
+    X4 = load_data()
+
+    fig = px.scatter_3d(
+        X4,  # Use only the first 10 rows for testing
+        x='Beneficiaries', 
+        y='Location_encoded', 
+        z='Hijri_Month',
+        color='y_pred_4',
+        color_continuous_scale=px.colors.sequential.Viridis,  # Add color scale
+        title="3D Scatter Plot of Beneficiaries, Location, and Hijri Month"
+    )
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=50, b=20),  # Adjust margins
+        scene=dict(
+            xaxis_title="Beneficiaries",
+            yaxis_title="Location Encoded",
+            zaxis_title="Hijri Month"
+        )
+    )
+    return fig
+
+def creat_model_charts1():
+    X4 = load_data()
+
+    fig = px.scatter_3d(
+        X4,  # Use only the first 10 rows for testing
+        x='Number of donations', 
+        y='Location_encoded', 
+        z='Beneficiaries',
+        color='y_pred_4',
+        color_continuous_scale=px.colors.sequential.Viridis,  # Add color scale
+        title="3D Scatter Plot of Beneficiaries, Location, and Hijri Month"
+    )
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=50, b=20),  # Adjust margins
+        scene=dict(
+            xaxis_title="Beneficiaries",
+            yaxis_title="Location Encoded",
+            zaxis_title="Hijri Month"
+        )
+    )
+    return fig
 
 def load_css(theme):
     """Load custom CSS with colors defined by the chosen theme."""
@@ -76,7 +126,6 @@ def load_css(theme):
     """
     st.markdown(custom_css, unsafe_allow_html=True)
 
-
 def hero_section(theme):
     """Display the hero section with background image and title."""
     hero_html = f"""
@@ -87,11 +136,8 @@ def hero_section(theme):
     """
     st.markdown(hero_html, unsafe_allow_html=True)
 
-
 def info_sections():
     """Show information sections explaining the choices and add dummy graph images."""
-   
-
     st.html("""<!DOCTYPE html>
 <html lang="ar">
 
@@ -146,122 +192,138 @@ def info_sections():
     
 </div>
             
-<div class="custom-box">
-    <h1>  دور البيانات في تعزيز العمل الخيري </h1>
-    <p>تعتمد منصة إحسان على تحليل البيانات لتحديد أكثر المشاريع احتياجًا، وضمان وصول التبرعات بطريقة فعالة.</p>
-</div>
-
-            
 </body>
 </html>
 """)
-    
-    
-   
 
 def price_comparison_section(theme):
     """Render the price comparison cards for different property types.
        The apartment card now displays a Plotly bar chart instead of a dummy image.
     """
+    # Model Charts
     st.markdown("# كيف تعكس أرقام إحسان تأثير العمل الخيري؟   ")
-    # For the Apartment card, replace the dummy image with a Plotly graph.
     with st.container():
+        st.markdown("", unsafe_allow_html=True)
+        st.plotly_chart(creat_model_charts(), use_container_width=True) 
+   # fig = creat_model_charts()
+   # fig.show()
+    
+
+    with st.container():
+        st.markdown("", unsafe_allow_html=True)
+        st.plotly_chart(creat_model_charts1(), use_container_width=True) 
+
+    with st.container():
+        # Open the container with HTML
         st.markdown(f"""
         <div class="price-card apartment">
-            <h1>أكبر المبالغ تبرعاً</h1>
-            <h1 style="color: {theme['accent1']};">من900,000 ر.س الى 1,100,000</h1>
+            <h1>الرؤى</h1>
+            <h1 style="color: {theme['accent2']};">تحليل مجموعات مشاريع إحسان</h1>
+            <div style="font-size: 24px; line-height: 1.8; margin-top: 20px; color: black;">
+        """, unsafe_allow_html=True)
+
+        # Add the content using Markdown (no HTML)
+        st.markdown("""
+        <p style="font-size: 24px; color: #8A2BE2; font-weight: bold;"> المجموعة الأولى _0 (البنفسج):</p>  
+        - تمثل مشاريع إحسان من بداية 2024 وحتى الآن.  
+        - موزعة على جميع المناطق.  
+        - عدد المستفيدين أقل من ١٠٠ ألف.  
+        - عدد المتبرعين لا يتجاوز 64 ألف.  
+
+        <p style="font-size: 24px; color: #FF69B4; font-weight: bold;"> المجموعة الثانية _1 (الوردي):</p>  
+        - تمثل مشاريع إحسان في مكة المكرمة والمدينة خلال الأشهر 5 حتى 12.  
+        - عدد المتبرعين لا يتجاوز 64 ألف.  
+        - عدد المستفيدين ما بين 240 ألف و 320 ألف.  
+
+        <p style="font-size: 24px; color: #FFA500; font-weight: bold;"> المجموعة الثالثة _2 (البرتقالي):</p>  
+        - تمثل مشاريع إحسان في مكة المكرمة خلال الأشهر 8 حتى 12.  
+        - عدد المتبرعين لا يتجاوز 53 ألف.  
+        - عدد المستفيدين بين 500 ألف و 600 ألف.  
+
+        <p style="font-size: 24px; color: #FFFF00; font-weight: bold;"> المجموعة الرابعة _3 (الأصفر):</p>  
+        - تمثل مشاريع إحسان في مكة المكرمة خلال الأشهر 7 حتى 10.  
+        - عدد المتبرعين لا يتجاوز 25 ألف.  
+        - عدد المستفيدين غير محدد.  
+        """, unsafe_allow_html=True)
+
+        # Close the HTML div
+        st.markdown("""
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
-        
+   # Add a new section for user input and prediction
+    st.markdown("---")  # Add a horizontal line for separation
+    st.markdown("<h1 style='text-align: center; color: black;'>أدخل القيم للتنبؤ</h1>", unsafe_allow_html=True)
 
-    # For the Villa and Land cards, we still use the dummy image.
+    # Create four text input fields
+    col1, col2 = st.columns(2)  # Split the layout into two columns
 
-    with st.container():
-        st.markdown(f"""
-        <div class="price-card villa">
-            <h1>الشركاء الأكثر مشاركة </h1>
-            <h1 style="color: {theme['accent2']};">من900,000 ر.س الى 1,100,000</h1>
+    with col1:
+        input1 = st.text_input("القيمة الأولى", placeholder="أدخل القيمة الأولى")
+        input2 = st.text_input("القيمة الثانية", placeholder="أدخل القيمة الثانية")
 
-        </div>
-        """, unsafe_allow_html=True)
-        
+    with col2:
+        input3 = st.text_input("القيمة الثالثة", placeholder="أدخل القيمة الثالثة")
+        input4 = st.text_input("القيمة الرابعة", placeholder="أدخل القيمة الرابعة")
 
+    # Add a button for prediction
+    if st.button("تنبؤ", key="predict_button"):
+        # Validate inputs
+        if input1 and input2 and input3 and input4:
+            try:
+                # Convert inputs to numeric values (if needed)
+                value1 = float(input1)
+                value2 = float(input2)
+                value3 = float(input3)
+                value4 = float(input4)
 
-    with st.container():
-            st.markdown(f"""
-            <div class="price-card land">
-                <h1>أعلى عدد مستفيدين</h1>
-                <h1 style="color: {theme['accent3']};">من900,000 ر.س الى 1,100,000</h1>
-            </div>
-            """, unsafe_allow_html=True)
-    with st.container():
-            st.markdown(f"""
-            <div class="price-card 4">
-                <h1>أنماط التبرع في رمضان  </h1>
-                <h1 style="color: {theme['accent4']};">من900,000 ر.س الى 1,100,000</h1>
-            </div>
-            """, unsafe_allow_html=True)
-            
-
-
-
-
+                # Perform prediction (replace this with your actual prediction logic)
+                prediction = value1 + value2 + value3 + value4  # Example logic
+                st.success(f"نتيجة التنبؤ: {prediction}")
+            except ValueError:
+                st.error("الرجاء إدخال قيم رقمية صحيحة.")
+        else:
+            st.warning("الرجاء ملء جميع الحقول.")
 
 def recommendation_section(theme):
     """Display recommendations and tips for decision making with enhanced text size."""
+    # Load the image and convert it to base64
+    image_path = Path(r"C:\Users\sulta\Downloads\qr.png")  # Use raw string for path
+    if image_path.exists():
+        with open(image_path, "rb") as image_file:
+            encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
+    else:
+        st.error("Image file not found!")
+        return
 
-    st.html("""<!DOCTYPE html>
-    <html lang="ar">
-    <head>
-      <meta charset="UTF-8">
-      <title>بحث عن منزل في الرياض</title>
-      <style>
-        body {
-          font-size: 24px;
-          line-height: 1.5;
-        }
-      </style>
-    </head>
-    <body>
-     <h1> في النهاية، قرار سليمان يعتمد على أولوياته واحتياجاته. هل يفضل المساحة الأكبر والخصوصية التي توفرها الفيلا؟ أم يفضل الموقع الراقي والخدمات المتاحة في الشقة؟ وربما يفكر في شراء أرض وبناء منزله المستقبلي وفقًا لرؤيته الخاصة. مهما كان خياره، الأهم أن يجد المكان الذي يشعر فيه بالراحة والاستقرار. 
-    </body>
-    </html>
-    """)
     st.markdown(f"""
     <div class="recommendation-box" style="font-size: 2rem; padding: 2rem;">
-        <h2 style="font-size: 3rem; margin-bottom: 1rem;">💡 نصائح لاتخاذ القرار</h2>
+        <h2 style="font-size: 3rem; margin-bottom: 1rem;">وجبات الإفطار لضيوف الرحمن</h2>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+            <!-- Text on the left -->
             <div style="border-left: 3px solid {theme['accent1']}; padding-left: 1rem;">
-                <h3 style="font-size: 2.2rem; margin-bottom: 0.5rem;">العوامل المهمة:</h3>
+                <h3 style="font-size: 2.2rem; margin-bottom: 0.5rem;"></h3>
                 <p style="font-size: 2rem; line-height: 1.5; margin: 0;">
-                    <strong>✓ قرب الخدمات الأساسية</strong><br>
-                    <strong>✓ جودة البناء</strong><br>
-                    <strong>✓ مستقبل المنطقة</strong>
+                    <strong>✓ رقم الحالة : P49680</strong><br>
                 </p>
             </div>
+            <!-- Image on the right -->
             <div style="border-left: 3px solid {theme['accent2']}; padding-left: 1rem;">
-                <h3 style="font-size: 2.2rem; margin-bottom: 0.5rem;">التوصيات:</h3>
-                <p style="font-size: 2rem; line-height: 1.5; margin: 0;">
-                    <strong>✓ زيارة الموقع شخصيًا</strong><br>
-                    <strong>✓ دراسة خيار التمويل</strong><br>
-                    <strong>✓ مقارنة عروض مختلفة</strong>
-                </p>
+                <img src="data:image/png;base64,{encoded_image}" alt="وجبات الإفطار" style="width: 100%; border-radius: 15px;">
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-
-
 def main():
-    st.set_page_config(layout="wide", page_title="رحلة البحث عن منزل")
+    st.set_page_config(layout="wide", page_title="   منصة إحسان")
 
     # Pastel theme configuration
     pastel_theme = {
         "background": "#d2d6d9",
         "text_color": "#595959",
-        "accent1": "#b58900",
+        "accent1": "#61898e",
         "accent2": "#cb4b16",
         "accent3": "#268bd2",
         "accent4": "#268bd2",
@@ -278,6 +340,7 @@ def main():
     price_comparison_section(theme)
     recommendation_section(theme)
 
+ 
 
 if __name__ == "__main__":
-    main()  
+    main()
