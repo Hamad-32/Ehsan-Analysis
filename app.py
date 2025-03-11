@@ -289,7 +289,7 @@ def price_comparison_section(theme):
 def recommendation_section(theme):
     """Display recommendations and tips for decision making with enhanced text size."""
     # Load the image and convert it to base64
-    image_path = Path(r"C:\Users\sulta\Downloads\qr.png")  # Use raw string for path
+    image_path = Path(qr.png")  # Use raw string for path
     if image_path.exists():
         with open(image_path, "rb") as image_file:
             encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
