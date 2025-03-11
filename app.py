@@ -22,7 +22,7 @@ def predict_api(value1, value2, value3, value4):
     try:
         response = requests.post(url, json=payload)
         if response.status_code == 200:
-            return response.json().get("prediction")
+            return response.json().get("cluster", "لا يوجد توقع متاح")
         else:
             return f"خطأ في الاستجابة: {response.status_code}"
     except Exception as e:
