@@ -11,9 +11,9 @@ def root():
     return "Welcome To Ehsan"
 
 # Load the scaler and DBSCAN core points data from the file
-scaler = joblib.load('scaler.joblib')
+scaler = joblib.load('model/scaler.joblib')
 # The file is assumed to contain a dictionary with keys: 'components', 'labels', and 'eps'
-dbscan_data = joblib.load('dbscan_core_points.joblib')
+dbscan_data = joblib.load('model/dbscan_core_points.joblib')
 core_points = dbscan_data["components"]  # Core points (numpy array)
 core_labels = dbscan_data["labels"]        # Labels for the core points
 epsilon = dbscan_data["eps"]               # The epsilon value used in DBSCAN
