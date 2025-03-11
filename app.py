@@ -278,12 +278,12 @@ def price_comparison_section(theme):
     col1, col2 = st.columns(2)  # Split the layout into two columns
 
     with col1:
-        input1 = st.text_input("القيمة الأولى", placeholder="أدخل القيمة الأولى")
-        input2 = st.text_input("القيمة الثانية", placeholder="أدخل القيمة الثانية")
+        input1 = st.text_input("عدد المتبرعين ", placeholder="أدخل القيمة الأولى")
+        input2 = st.text_input(" عدد المستفيدين", placeholder="أدخل القيمة الثانية")
 
     with col2:
-        input3 = st.text_input("القيمة الثالثة", placeholder="أدخل القيمة الثالثة")
-        input4 = st.text_input("القيمة الرابعة", placeholder="أدخل القيمة الرابعة")
+        input3 = st.text_input("الموقع", placeholder="أدخل القيمة الثالثة")
+        input4 = st.text_input("الشهر الهجري", placeholder="أدخل القيمة الرابعة")
 
     # Add a button for prediction
     if st.button("تنبؤ", key="predict_button"):
