@@ -1,5 +1,5 @@
 # Ehsan Data science project
-##streamlit link:
+## streamlit link:
 https://ehsan-analysis-fuzyefhhi9vmgwyzzk25i9.streamlit.app/
 
 ## Team Members
@@ -57,6 +57,7 @@ Performance was primarily assessed using the silhouette average score, which pro
   
 <img width="390" alt="Screenshot _1" src="https://github.com/user-attachments/assets/9f0ce28d-1a29-4b62-bb85-327e0d62edec" />
 <img width="389" alt="Screenshot_2" src="https://github.com/user-attachments/assets/b9743046-97bd-48d9-8fdd-7f24a47e862c" />
+
 * DBSCAN models
   
 <img width="364" alt="Screenshot_3" src="https://github.com/user-attachments/assets/7be3f4e1-b417-41e8-ba0c-0636ee6ea1b5" />
