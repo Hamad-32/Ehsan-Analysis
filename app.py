@@ -242,18 +242,18 @@ def price_comparison_section(theme):
 
         # Add the content using Markdown (no HTML)
         st.markdown("""
-        <p style="font-size: 24px; color: #8A2BE2; font-weight: bold;"> المجموعة الأولى _0 (البنفسج):</p>  
+        <p style="font-size: 24px; color: rgb(59 81 138); font-weight: bold;"> المجموعة الأولى _0 (الازرق):</p>  
         - تمثل مشاريع إحسان من بداية 2024 وحتى الآن.  
         - موزعة على جميع المناطق.  
         - عدد المستفيدين أقل من ١٠٠ ألف.  
         - عدد المتبرعين لا يتجاوز 64 ألف.  
 
-        <p style="font-size: 24px; color: #FF69B4; font-weight: bold;"> المجموعة الثانية _1 (الوردي):</p>  
+        <p style="font-size: 24px; color: rgb(35 144 140); font-weight: bold;"> المجموعة الثانية _1 (سماوي):</p>  
         - تمثل مشاريع إحسان في مكة المكرمة والمدينة خلال الأشهر 5 حتى 12.  
         - عدد المتبرعين لا يتجاوز 64 ألف.  
         - عدد المستفيدين ما بين 240 ألف و 320 ألف.  
 
-        <p style="font-size: 24px; color: #FFA500; font-weight: bold;"> المجموعة الثالثة _2 (البرتقالي):</p>  
+        <p style="font-size: 24px; color: rgb(96 200 96); font-weight: bold;"> المجموعة الثالثة _2 (اخضر):</p>  
         - تمثل مشاريع إحسان في مكة المكرمة خلال الأشهر 8 حتى 12.  
         - عدد المتبرعين لا يتجاوز 53 ألف.  
         - عدد المستفيدين بين 500 ألف و 600 ألف.  
