@@ -53,6 +53,7 @@ Our analysis involved a structured approach, encompassing feature engineering, m
 ## Performance Metrics
 
 Performance was primarily assessed using the silhouette average score, which provided a measure of cluster cohesion and separation
+based on the score we choose model 4
 * k-means models
   
 <img width="390" alt="Screenshot _1" src="https://github.com/user-attachments/assets/9f0ce28d-1a29-4b62-bb85-327e0d62edec" />
